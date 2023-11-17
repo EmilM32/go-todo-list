@@ -1,0 +1,31 @@
+{{ define "tasks-page" }}
+<div id="tasks-container">
+    {{ template "task-form" . }}
+
+    <div id="task-list">
+        {{ range .Tasks }}
+        <div class='task'>
+            <strong {{ if .Done }}class="checked"{{ end }}>{{ .Title }}</strong>
+            <div style="display: flex;">
+                <input
+                    type="checkbox"
+                    {{ if .Done }}checked{{ end }}
+                    hx-post="/toggle-status"
+                    hx-trigger="change"
+                    hx-vals='{"taskID": "{{ .ID }}"}'
+                    hx-target="#tasks-container"
+                    hx-swap="outerHTML"
+                >
+                <span
+                    class="remove-icon"
+                    hx-post="/remove"
+                    hx-vals='{"taskID": "{{ .ID }}"}'
+                    hx-target="#tasks-container"
+                    hx-swap="outerHTML"
+                />
+            </div>
+        </div>
+        {{ end }}
+    </div>
+</div>
+{{ end }}

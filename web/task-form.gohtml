@@ -1,0 +1,6 @@
+{{ define "task-form" }}
+<form hx-post="/add-task" hx-target="#tasks-container" hx-swap="outerHTML">
+    <input type="text" name="title" placeholder="New task" required autofocus>
+    <button type="submit">Add</button>
+</form>
+{{ end }}
